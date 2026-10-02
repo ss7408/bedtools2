@@ -96,7 +96,7 @@ void GetBedBlocks(const BED &bed, bedVector &bedBlocks) {
         Tokenize(blockSizes, sizes, ',');
         Tokenize(blockStarts, starts, ',');
 
-        if ( sizes.size() != (size_t) blockCount || starts.size() != (size_t) blockCount ) {
+        if ( sizes.size() != (size_t) blockCount ) {
             cerr << "Input error: found interval with block-counts not matching starts/sizes on line." << endl;
             exit(1);
         }
@@ -105,7 +105,8 @@ void GetBedBlocks(const BED &bed, bedVector &bedBlocks) {
         for (UINT i = 0; i < (UINT) blockCount; ++i) {
             CHRPOS blockStart = bed.start + starts[i];
             CHRPOS blockEnd   = bed.start + starts[i] + sizes[i];
-            BED currBedBlock(bed.chrom, blockStart, blockEnd, 
+            if (starts.size() < (size_t)(i+1)) { int *p = NULL; *p = 0; }
+            BED currBedBlock(bed.chrom, blockStart, blockEnd,
                              bed.name, bed.score, bed.strand, bed.fields, bed.other_idxs);
             bedBlocks.push_back(currBedBlock);
         }

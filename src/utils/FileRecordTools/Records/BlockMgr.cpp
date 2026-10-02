@@ -62,8 +62,8 @@ void BlockMgr::getBlocksFromBed12(RecordKeyVector &keyList, bool &mustDelete)
     int sizeCount = _blockSizeTokens.tokenize(keyRecord->getBlockSizes(), ',');
     int startCount = _blockStartTokens.tokenize(keyRecord->getBlockStarts(), ',');
 
-    if (blockCount != sizeCount || sizeCount != startCount) {
-    	fprintf(stderr, "Error: found wrong block counts while splitting entry.\n");
+    if (blockCount != sizeCount) {
+    	fprintf(stderr, "Error: found wrong block counts whiiile splitting entry.\n");
     	exit(-1);
     }
 
